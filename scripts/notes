@@ -1,0 +1,127 @@
+#!/bin/sh
+
+# File extension for the notes
+note_ext="md"
+
+NOTES_DIR="$THOUGHTS_DIR"
+if [ "$NOTES_DIR" = '' ]
+then
+	NOTES_DIR="$HOME/src/thoughts/thoughts"
+fi
+
+if [ "$EDITOR" = '' ]
+then
+	EDITOR='vim'
+fi
+
+# Interactive if stdin in a tty
+if [ -t 0 ] && [ -t 1 ]
+then 
+	interactive=1
+else
+	interactive=0
+fi
+
+search_fulltext=0
+delete_note=0
+
+if [ ! -d "$NOTES_DIR" ]
+then
+	echo "$NOTES_DIR" not present, creating it
+	mkdir -p "$NOTES_DIR"
+fi
+
+exec_open_note() {
+	file="$NOTES_DIR/$1.$note_ext"
+
+	if [ "$delete_note" -eq "1" ]
+	then
+		exec rm -i "$file"
+	fi
+
+	if [ "$interactive" -eq "1" ]
+	then
+		exec $EDITOR "$file"
+	else
+		if [ ! -t 0 ]
+		then
+			exec cat >> "$file"
+		fi
+		if [ ! -t 1 ]
+		then
+			exec cat "$file"
+		fi
+	fi
+}
+
+list_notes() {
+	ls -t "$NOTES_DIR" | sed "s/\.$note_ext\$//" 
+}
+
+dump_notes() {
+	col_file=$(tput setaf 6)
+	col_line=$(tput setaf 3)
+	col_rst=$(tput sgr0)
+
+	# Dump notes by modification time (more recent first)
+	ls -t "$NOTES_DIR" | while read file
+	do
+		clean_file=$(echo $file | sed "s/\.$note_ext$//")
+		full_file="$NOTES_DIR/$file"
+
+		cat -n "$full_file" | sed 's/^ *//' | grep -v '^[0-9]*\s*$' | \
+			sed "s,^\([0-9]*\),${col_file}${clean_file}${col_rst}:${col_line}\1${col_rst}:,"
+	done
+}
+
+while getopts 'hfd' opt
+do
+	case $opt in
+		f)
+			shift
+			search_fulltext=1
+			;;
+		d)
+			shift
+			delete_note=1
+			;;
+		*)
+			echo "Usage:"
+			echo "	notes <note-name>"
+			echo "	notes"
+			echo "	notes -f"
+			echo "	notes -d"
+			exit 0
+			;;
+	esac
+done
+
+preview="cat $NOTES_DIR/{1}.$note_ext"
+
+if [ -n "$1" ]
+then
+	exec_open_note "$1"
+else
+	if [ "$interactive" -eq "1" ]
+	then
+		if [ "$search_fulltext" = '1' ]
+		then
+			choice=$(dump_notes | fzf -d ':' --ansi +m --preview-window +{2}-5 --preview "$preview $fzf_opts")
+		else
+			choice=$(list_notes | fzf -d ':' +m --preview "$preview $fzf_opts")
+		fi
+
+
+		if [ -z "$choice" ]
+		then
+			exit 1
+		fi
+
+
+		note=$(echo "$choice" | sed 's/:.*//')
+		exec_open_note "$note"
+	else
+		echo "note without arguments when the terminal isn't interactive" >&2
+		exit 1
+	fi
+fi
