@@ -1,7 +1,7 @@
 # On Global State
 
 At the first day Church said let there be [lambdas](https://en.wikipedia.org/wiki/Lambda_calculus). 
-And he saw that it was not good enough, but anyways, there is now some basis for computation.
+And he saw that it was not good enough, but anyway, there is now some basis for computation.
 At the second day, Turing said:
 "I need a machine to compute.
 Let's call it a [Turing Machine](https://en.wikipedia.org/wiki/Turing_machine).
@@ -18,7 +18,7 @@ This has led to many buffer overflows and is generally regarded as a bad move.
 The need for memory protection is so obvious that most popular languages don't let you
 talk about it at all.
 In Python, Java and JavaScript you can use memory by creating objects.
-An object consists of data and behaviour, both of which are typically given names.
+An object consists of data and behavior, both of which are typically given names.
 Accessing memory outside of the objects accessible to the current scope is impossible,
 as it should be. (Note from the Editor: Insert bit about FFI here).
 
@@ -54,7 +54,7 @@ Do you think you can guess my secrets with just 3 tries?
 Probably not. If I have more than 3 secrets, certainly not.
 
 But can you still get access to all my secrets?
-(Given that this whole example should demonstrate unintended behaviour,
+(Given that this whole example should demonstrate unintended behavior,
 the answer should obviously be yes, the actual question is only: how?)
 
 Hint 1: `secrets.includes(arg)` is equal to `Array.prototype.includes.call(secrets, arg)`

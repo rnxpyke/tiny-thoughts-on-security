@@ -11,7 +11,7 @@ Heartbleed, Meltdown, Spectre, Rowhammer, WannaCry, Shellshock...
 And the list goes on.
 
 While the computer security community has gotten quite good at naming things,
-(which is one of the three hard problems of computer sience, after all), no
+(which is one of the three hard problems of computer science, after all), no
 significant progress towards preventing these bugs has been made.
 
 That is not to say that there haven't been made attempts!
@@ -19,7 +19,7 @@ In fact, the necessary security primitives to prevent software bugs are mostly
 already present.
 (To convince yourself of that, you only have to take a look at something like seL4.)
 And although there are some honorable mentions for making computers safer (Rust comes to mind),
-we still are at a point where a simple buffer overflow is enough to comproise a system.
+we still are at a point where a simple buffer overflow is enough to compromise a system.
 
 It seems like we care more about making computers faster than keeping them
 secure, which is unfortunate for two reasons.
