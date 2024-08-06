@@ -7,21 +7,21 @@ In short, a malicious actor managed to get changes to binary blobs into the XZ s
 These blobs contained an exploit payload that would be compiled into the library in specific build environments.
 The exploit in question allowed for remote code execution on affected systems.
 
-The malicious changes have been reverted since then, but online discource focused on the ['Trusting Trust'](https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf) aspect of possible supply chain attacks in vital open source libraries.
+The malicious changes have been reverted since then, but online discourse focused on the ['Trusting Trust'](https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf) aspect of possible supply chain attacks in vital open source libraries.
 Naturally, the trustworthiness of the was questioned quickly after the incident.
 
 In the general case, it is very difficult to establish well founded trust towards suppliers or their software.
 
 For security minded people, it is paramount to keep the Trusted Computing Base (TCB) as small as possible.
-The [Bazaar style](http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/index.html#catbmain) of software distribution in Open Source Software on the other hand leads to many participants of varying degress of trust. 
+The [Bazaar style](http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/index.html#catbmain) of software distribution in Open Source Software on the other hand leads to many participants of varying degrees of trust. 
 
 A common way of establishing trust in Open Source software is the way of social proof.
-Open Source maintainers gain trust by continiously producing (seemingly) well intentioned software. 
-Reviewers can principially make well founded judgments on the nature of a particular change in software by reviewing the changed source code.
+Open Source maintainers gain trust by continuously producing (seemingly) well intentioned software. 
+Reviewers can principally make well founded judgments on the nature of a particular change in software by reviewing the changed source code.
 The source code doesn't lie. (Well, except if it does, see the "On Trusting Trust" Paper.)
 
-In the real world however, people don't trust software projects like Linux because they have themselves reviewd the (million lines of) source code,
-but because they trust in the judgments of other users and/or reviewers of the software, or even in the good-heartedness of the project lead themselves.
+In the real world however, people don't trust software projects like Linux because they have themselves reviewed the (million lines of) source code,
+but because they trust in the judgments of other users and/or reviewers of the software, or even in the goodheartedness of the project lead themselves.
 That is to say, people trust software, or the creators of software based on their feelings and the "vibes" they get from the project.
 
 Sadly, the computer doesn't care about your feelings.
@@ -86,8 +86,8 @@ To decompress a message, follow these steps:
 (\*): The compression/decompression algorithm has to be run in a *pure* sandbox, like a docker container without I/O,
 or a WebAssembly runtime.
 
-If you follow these steps, you can run any compression algorithm, regardless of the trustworthyness of the authors,
-because we have cryptographical evidence that the message wasn't tempered with.
+If you follow these steps, you can run any compression algorithm, regardless of the trustworthiness of the authors,
+because we have cryptographic evidence that the message wasn't tempered with.
 (Meaning that any potential malicious actor has to break the hash function used to avoid detection of altered messages.)
 
 
@@ -101,6 +101,6 @@ One could argue that replacing one program in the TCB with another is just movin
 However, this scheme improves the bootstrapping of a TCB in two ways:
 - We can replace a whole class of algorithms with a single "to be trusted" sandbox program
 - It is likely that many other algorithms will benefit from the presence of a trusted sandbox.
-  Thus, the "cost" of verifying the correctness of such a sandbox could be armortized over all such programs.
+  Thus, the "cost" of verifying the correctness of such a sandbox could be amortized over all such programs.
 
 
